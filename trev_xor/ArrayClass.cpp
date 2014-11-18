@@ -40,7 +40,7 @@ ArrayClass::ArrayClass(FILE *fp, int n, const char b )  // bit로 저장된 파일인 �
 	int i, j;
 	char ch;
 	uint32_t temp;
-	if(!Data)
+	if(Data)
 		free(Data);
 	Len = n;
 	Block = Len/32; // X_LEN % 32 == 0 이 만족되어 있음
@@ -66,7 +66,7 @@ ArrayClass::ArrayClass(FILE *fp, int t, const char b, const char r )
 
 	srand((unsigned int)time(NULL));
 
-	if(!Data)
+	if(Data)
 		free(Data);
 	Len = t;
 	Block = Len/32;

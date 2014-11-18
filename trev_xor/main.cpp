@@ -55,13 +55,15 @@ void main()
 	int iterations = num_of_input_bits / X_LEN;
 	//변수 선언 및 초기화 
 	//Random source, U_t는 ArrayClass의 Data, Len, Block을 채우는 다른 방식(Init 함수 등)으로 입력받아도 됨
-	ArrayClass X(fp,X_LEN, 'b');			//Random source 입력 받기
+	//ArrayClass X(fp,X_LEN, 'b');			//Random source 입력 받기
 	//ArrayClass T(fp2,T_LEN);		//U_t 입력 받기
-	ArrayClass T(fp2, T_LEN, 'b', 'r');
+	//ArrayClass T(fp2, T_LEN, 'b', 'r');
 	ArrayClass RND;					//출력을 저장할 변수 선언
 
 	int i = 0;
 	for (i = 0; i < iterations; ++i){
+		ArrayClass X(fp, X_LEN, 'b');			//Random source 입력 받기
+		ArrayClass T(fp2, T_LEN, 'b', 'r');
 		extractor(&X, &T, &RND);			//extractor수행
 		X.fprint(fp3, "Random SRC ", 'b');
 		T.fprint(fp3, "U_t        ", 'b');
