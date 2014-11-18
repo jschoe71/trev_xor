@@ -1,4 +1,4 @@
-#ifdef _WIN32
+ï»¿#ifdef _WIN32
 #define _CRT_SECURE_NO_WARNINGS  // to avoid fopen error in VC++
 #endif
 #include <stdio.h>
@@ -18,7 +18,7 @@ using namespace std;
 
 #define TIMER_SAMPLE_CNT 1
 #define SAMPLE_CNT 2
-//3GHz CPU±âÁØ. ´Ù¸¥ CPUÀÎ °æ¿ì º¯°æ
+//3GHz CPUê¸°ì¤€. ë‹¤ë¥¸ CPUì¸ ê²½ìš° ë³€ê²½
 #define CPUCYCLE 4000000000.
 
 void doTiming();
@@ -30,17 +30,17 @@ unsigned int HiResTime(void);
 
 void main()
 {
-	//»ç¿ë¿¹
+	//ì‚¬ìš©ì˜ˆ
 	
 	FILE *fp, *fp2, *fp3;
 //	string line;
 //	unsigned long int c;
 	
 
-	fp = fopen("LPN.txt","r");		//Random source ÀÔ·Â
+	fp = fopen("LPN.txt","r");		//Random source ì…ë ¥
 	//ifstream fpaa("LPN.txt");
-	fp2 = fopen("T.txt","w");		//U_t ÀÔ·Â
-	fp3 = fopen("RND.txt","w+");	//Ãâ·Â ÀúÀå
+	fp2 = fopen("T.txt","w");		//U_t ì…ë ¥
+	fp3 = fopen("RND.txt","w+");	//ì¶œë ¥ ì €ì¥
 	
 /*	while (getline(fpaa, line))
 	{
@@ -53,27 +53,27 @@ void main()
 	fseek(fp, 0L, SEEK_SET);
 	printf("number of bits = %d", num_of_input_bits);
 	int iterations = num_of_input_bits / X_LEN;
-	//º¯¼ö ¼±¾ğ ¹× ÃÊ±âÈ­ 
-	//Random source, U_t´Â ArrayClassÀÇ Data, Len, BlockÀ» Ã¤¿ì´Â ´Ù¸¥ ¹æ½Ä(Init ÇÔ¼ö µî)À¸·Î ÀÔ·Â¹Ş¾Æµµ µÊ
-	//ArrayClass X(fp,X_LEN, 'b');			//Random source ÀÔ·Â ¹Ş±â
-	//ArrayClass T(fp2,T_LEN);		//U_t ÀÔ·Â ¹Ş±â
+	//ë³€ìˆ˜ ì„ ì–¸ ë° ì´ˆê¸°í™” 
+	//Random source, U_tëŠ” ArrayClassì˜ Data, Len, Blockì„ ì±„ìš°ëŠ” ë‹¤ë¥¸ ë°©ì‹(Init í•¨ìˆ˜ ë“±)ìœ¼ë¡œ ì…ë ¥ë°›ì•„ë„ ë¨
+	//ArrayClass X(fp,X_LEN, 'b');			//Random source ì…ë ¥ ë°›ê¸°
+	//ArrayClass T(fp2,T_LEN);		//U_t ì…ë ¥ ë°›ê¸°
 	//ArrayClass T(fp2, T_LEN, 'b', 'r');
-	ArrayClass RND;					//Ãâ·ÂÀ» ÀúÀåÇÒ º¯¼ö ¼±¾ğ
+	ArrayClass RND;					//ì¶œë ¥ì„ ì €ì¥í•  ë³€ìˆ˜ ì„ ì–¸
 
 	int i = 0;
 	for (i = 0; i < iterations; ++i){
-		ArrayClass X(fp, X_LEN, 'b');			//Random source ÀÔ·Â ¹Ş±â
+		ArrayClass X(fp, X_LEN, 'b');			//Random source ì…ë ¥ ë°›ê¸°
 		ArrayClass T(fp2, T_LEN, 'b', 'r');
-		extractor(&X, &T, &RND);			//extractor¼öÇà
-		X.fprint(fp3, "Random SRC ", 'b');
-		T.fprint(fp3, "U_t        ", 'b');
-		RND.fprint(fp3, "Random val ", 'b');				//Ãâ·Â
+		extractor(&X, &T, &RND);			//extractorìˆ˜í–‰
+		//X.fprint(fp3, "Random SRC ", 'b');
+		//T.fprint(fp3, "U_t        ", 'b');
+		RND.fprint(fp3, "", 'b');				//ì¶œë ¥
 	}
 	
 	fclose(fp);
 	fclose(fp2);
 	fclose(fp3);
-	//¼Óµµ ÃøÁ¤
+	//ì†ë„ ì¸¡ì •
 	doTiming();
 	getchar();
 	

@@ -1,7 +1,7 @@
-#ifndef CONFIG 
+ï»¿#ifndef CONFIG 
 #define CONFIG
 
-//¸¸¾à ¾Æ·¡ÀÇ ¼¼ÆÃ°ªÀ» º¯°æ ÇÒ ½Ã, Si ºÎºĞµµ ¼öÁ¤ÇØ¾ß ÇÔ
+//ë§Œì•½ ì•„ë˜ì˜ ì„¸íŒ…ê°’ì„ ë³€ê²½ í•  ì‹œ, Si ë¶€ë¶„ë„ ìˆ˜ì •í•´ì•¼ í•¨
 
 #define X_LEN 262144
 #define LOG_X_LEN 18
@@ -10,7 +10,7 @@
 #define T2_LEN 15
 #define OUT_LEN 80785
 
-//Si°ü·Ã
+//Siê´€ë ¨
 #define MOD 271
 #define NUM_Si 270
 #define DEGREE 2

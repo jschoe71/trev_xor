@@ -1,4 +1,4 @@
-#include "ArrayClass.h"
+ï»¿#include "ArrayClass.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
@@ -14,9 +14,9 @@ ArrayClass::ArrayClass()
 }
 
 ArrayClass::ArrayClass(FILE *fp, int n)
-	//ÆÄÀÏ·Î ºÎÅÍ ÀÔ·Â ¹Ş´Â ÇÔ¼ö
-	// nÀº ºñÆ® ±æÀÌ, ÆÄÀÏÀÇ °ªÀº 16Áø¼ö(Not binary)
-	// ÇÑ¾ç´ë ¿ø ÄÚµåÀÇ ÇÔ¼ö
+	//íŒŒì¼ë¡œ ë¶€í„° ì…ë ¥ ë°›ëŠ” í•¨ìˆ˜
+	// nì€ ë¹„íŠ¸ ê¸¸ì´, íŒŒì¼ì˜ ê°’ì€ 16ì§„ìˆ˜(Not binary)
+	// í•œì–‘ëŒ€ ì› ì½”ë“œì˜ í•¨ìˆ˜
 {
 	int i;
 	uint32_t temp;
@@ -24,18 +24,18 @@ ArrayClass::ArrayClass(FILE *fp, int n)
 		free(Data);
 	Len = n;
 	Block = (Len+31)/32;
-	Data = (uint32_t *)malloc(sizeof(uint32_t) * Block);  // 4 bytes = 32 bits, °¹¼ö°¡ BlockÀÎ uint32_t ÇüÀÇ º¯¼ö¿­
-	for(i =0 ; i < Block-1 ; i++)  // FIXME: Block --> Block-1·Î ¼öÁ¤
+	Data = (uint32_t *)malloc(sizeof(uint32_t) * Block);  // 4 bytes = 32 bits, ê°¯ìˆ˜ê°€ Blockì¸ uint32_t í˜•ì˜ ë³€ìˆ˜ì—´
+	for(i =0 ; i < Block-1 ; i++)  // FIXME: Block --> Block-1ë¡œ ìˆ˜ì •
 	{
-		fscanf_s(fp, "%08X",&Data[i]);  // fileÀ» 8 character ´ÜÀ§·Î ÀĞ¾îµéÀÓ -> 16Áø¼ö Ç¥±â¶ó¸é 32ºñÆ®°¡ µÊ
+		fscanf_s(fp, "%08X",&Data[i]);  // fileì„ 8 character ë‹¨ìœ„ë¡œ ì½ì–´ë“¤ì„ -> 16ì§„ìˆ˜ í‘œê¸°ë¼ë©´ 32ë¹„íŠ¸ê°€ ë¨
 		temp = Data[i];
 	}
-	//16Áø¼ö(4¹ÙÀÌÆ®)±âÁØÀ¸·Î °ª ¼³Á¤
+	//16ì§„ìˆ˜(4ë°”ì´íŠ¸)ê¸°ì¤€ìœ¼ë¡œ ê°’ ì„¤ì •
 	Data[Block-1] = Data[Block-1]<<(32-4*(((Len%32)+3)/4));  // last block that may not fill 4 byte storage
 }
 
-ArrayClass::ArrayClass(FILE *fp, int n, const char b )  // bit·Î ÀúÀåµÈ ÆÄÀÏÀÎ °æ¿ì
-// ³»°¡ Ãß°¡ÇÔ 
+ArrayClass::ArrayClass(FILE *fp, int n, const char b )  // bitë¡œ ì €ì¥ëœ íŒŒì¼ì¸ ê²½ìš°
+// ë‚´ê°€ ì¶”ê°€í•¨ 
 {
 	int i, j;
 	char ch;
@@ -43,7 +43,7 @@ ArrayClass::ArrayClass(FILE *fp, int n, const char b )  // bit·Î ÀúÀåµÈ ÆÄÀÏÀÎ °
 	if(Data)
 		free(Data);
 	Len = n;
-	Block = Len/32; // X_LEN % 32 == 0 ÀÌ ¸¸Á·µÇ¾î ÀÖÀ½
+	Block = Len/32; // X_LEN % 32 == 0 ì´ ë§Œì¡±ë˜ì–´ ìˆìŒ
 	Data = (uint32_t*)calloc(Block, sizeof(uint32_t));  // initialize with zero
 	for( i=0 ; i<Block ; ++i )
 	{
@@ -57,8 +57,8 @@ ArrayClass::ArrayClass(FILE *fp, int n, const char b )  // bit·Î ÀúÀåµÈ ÆÄÀÏÀÎ °
 }
 
 ArrayClass::ArrayClass(FILE *fp, int t, const char b, const char r ) 
-// ÀÌ°Íµµ ³»°¡ Ãß°¡
-// uniform random seed ÆÄÀÏ »ı¼º
+// ì´ê²ƒë„ ë‚´ê°€ ì¶”ê°€
+// uniform random seed íŒŒì¼ ìƒì„±
 {
 	int i, j;
 	char ch;
@@ -83,7 +83,7 @@ ArrayClass::ArrayClass(FILE *fp, int t, const char b, const char r )
 }
 
 
-void ArrayClass::InitZero(int n)												//nºñÆ®ÀÇ 0À¸·Î ÃÊ±âÈ­ ÇÏ´Â ÇÔ¼ö
+void ArrayClass::InitZero(int n)												//në¹„íŠ¸ì˜ 0ìœ¼ë¡œ ì´ˆê¸°í™” í•˜ëŠ” í•¨ìˆ˜
 {
 	int i;
 	if(!Data)
@@ -97,7 +97,7 @@ void ArrayClass::InitZero(int n)												//nºñÆ®ÀÇ 0À¸·Î ÃÊ±âÈ­ ÇÏ´Â ÇÔ¼ö
 	}
 }
 
-void ArrayClass::Init(int n, unsigned int *RowData)								//nºñÆ®ÀÇ ¹è¿­·Î ÃÊ±âÈ­ÇÏ´Â ÇÔ¼ö
+void ArrayClass::Init(int n, unsigned int *RowData)								//në¹„íŠ¸ì˜ ë°°ì—´ë¡œ ì´ˆê¸°í™”í•˜ëŠ” í•¨ìˆ˜
 {
 	int i;
 	if(!Data)

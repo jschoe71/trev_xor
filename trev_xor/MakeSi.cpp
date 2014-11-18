@@ -1,9 +1,9 @@
-/*
-void ComputeSi(int i, unsigned int *indices) : Si »ı¼º ÇÔ¼ö
-i¸¦ ÀÔ·Â¹Ş¾Æ SiÀÇ ¿ø¼Ò(indices)»ı¼º
-GF(MOD)À» ÀÌ¿ë : ±âº» ¼³Á¤ MOD = 131
-°¢ ¿ø¼Ò(index)´Â 0 ~ MOD^2-1ÀÇ °ª
-i´Â ÃÖ´ë MOD^DEGREE - 1 ±îÁö °¡´É(ÃÖ´ë Ãâ·Â ±æÀÌ)
+ï»¿/*
+void ComputeSi(int i, unsigned int *indices) : Si ìƒì„± í•¨ìˆ˜
+ië¥¼ ì…ë ¥ë°›ì•„ Siì˜ ì›ì†Œ(indices)ìƒì„±
+GF(MOD)ì„ ì´ìš© : ê¸°ë³¸ ì„¤ì • MOD = 131
+ê° ì›ì†Œ(index)ëŠ” 0 ~ MOD^2-1ì˜ ê°’
+iëŠ” ìµœëŒ€ MOD^DEGREE - 1 ê¹Œì§€ ê°€ëŠ¥(ìµœëŒ€ ì¶œë ¥ ê¸¸ì´)
 */
 
 #include "config.h"
@@ -25,13 +25,13 @@ void ComputeSi(int i, unsigned int *indices)
 	}
 #endif
 	c = i;
-	for (count = 0; count <= DEGREE; count++) {  // DEGREE=2·Î Á¤ÀÇµÇ¾î ÀÖÀ½. Áï 2Â÷ ´ÙÇ×½Ä
-		coeff[count] = c % MOD;  // ´ÙÇ×½Ä °è¼ö °áÁ¤ : ³·Àº Â÷¼öºÎÅÍ (Áï, »ó¼öÇ×)
-		c /= MOD;  // »ó¼öÇ× Á¦°Å : °è¼ö°¡ MODº¸´Ù ÀÛÀº ¼öÀÌ¹Ç·Î. ¿Ö³ÄÇÏ¸é GF(p) »óÀÇ ´ÙÇ×½ÄÀÌ¶ó¼­
+	for (count = 0; count <= DEGREE; count++) {  // DEGREE=2ë¡œ ì •ì˜ë˜ì–´ ìˆìŒ. ì¦‰ 2ì°¨ ë‹¤í•­ì‹
+		coeff[count] = c % MOD;  // ë‹¤í•­ì‹ ê³„ìˆ˜ ê²°ì • : ë‚®ì€ ì°¨ìˆ˜ë¶€í„° (ì¦‰, ìƒìˆ˜í•­)
+		c /= MOD;  // ìƒìˆ˜í•­ ì œê±° : ê³„ìˆ˜ê°€ MODë³´ë‹¤ ì‘ì€ ìˆ˜ì´ë¯€ë¡œ. ì™œëƒí•˜ë©´ GF(p) ìƒì˜ ë‹¤í•­ì‹ì´ë¼ì„œ
 	}
 	for(a = 0;a<NUM_Si;a++)
 	{
-		res = coeff[0];  // »ó¼öÇ×
+		res = coeff[0];  // ìƒìˆ˜í•­
 		x = a;
 		for(count=1;count<=DEGREE;count++)
 		{

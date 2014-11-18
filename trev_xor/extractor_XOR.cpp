@@ -1,4 +1,4 @@
-#include "extractor_XOR.h"
+ï»¿#include "extractor_XOR.h"
 #include "MakeSi.h"
 
 inline bool get_bit(ArrayClass *Src, unsigned int i) {
@@ -38,9 +38,9 @@ inline void extractor(ArrayClass *X, ArrayClass *T, ArrayClass *RND)
 
 	for(i=0;i<OUT_LEN;i++)
 	{
-		//S °è»ê(index)
+		//S ê³„ì‚°(index)
 		ComputeSi(i,Si);
-		//T¿¡¼­ SiÀ§Ä¡ °ªÀ» »Ì¾Æ¼­ T2_LEN°³ÀÇ indices °è»ê
+		//Tì—ì„œ Siìœ„ì¹˜ ê°’ì„ ë½‘ì•„ì„œ T2_LENê°œì˜ indices ê³„ì‚°
 		for(j=0;j<T2_LEN;j++)
 		{
 			Sidx[j] = 0;
