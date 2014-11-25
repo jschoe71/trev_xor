@@ -30,6 +30,7 @@ unsigned int calibrate();
 unsigned int calibrate_per_clock();
 unsigned int HiResTime(void);
 void multithread_loop(FILE *, FILE *, FILE *, int, int);
+
 void main()
 {
 	//사용예
@@ -113,10 +114,12 @@ void multithread_loop(FILE *fp1, FILE *fp2, FILE *fp3, int i, int j)
 	fseek(fp3, (i+j*NUM_OF_THREAD)*OUT_LEN, SEEK_SET);
 	ArrayClass X(fp1, X_LEN, 'b');  // thread간에 fp1을 읽는 위치가 X_LEN 만큼씩 차이가 있어야 함
 	ArrayClass T(fp2, T_LEN, 'b', 'r');  // 여기서는 T_LEN만큼의 간격으로..
-	ArrayClass RND;
+	ArrayClass RND;   // 객체를 이 함수 안에서 생성하는 것은 효율성에 문제가 있음. main 에서 생성한 후 접근하도록 해야 할 듯. 
 	RND.InitZero(OUT_LEN);
 	extractor(&X, &T, &RND);
 	RND.fprint(fp3, "", 'b');
+	// ArrayClass에 내부 계산 루틴을 별도의 method로 만들어야지 생성자에 기능을 포함시켰기 때문에 이런 비효율이 발생하였음.
+	// ArrayClass 생성자 수정 및 method 추가
 }
 void doTiming()
 {

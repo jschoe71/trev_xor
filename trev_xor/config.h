@@ -15,6 +15,6 @@
 #define NUM_Si 270
 #define DEGREE 2
 
-#define NUM_OF_THREAD 4
+#define NUM_OF_THREAD 10
 
 #endif
