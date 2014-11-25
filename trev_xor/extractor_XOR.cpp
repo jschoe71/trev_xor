@@ -1,5 +1,8 @@
-﻿#include "extractor_XOR.h"
+#include "extractor_XOR.h"
 #include "MakeSi.h"
+//#include <tbb/tbb.h>
+
+//using namespace tbb;
 
 inline bool get_bit(ArrayClass *Src, unsigned int i) {
 // 0 <= i <= Src.Len-1 
@@ -34,7 +37,7 @@ inline void extractor(ArrayClass *X, ArrayClass *T, ArrayClass *RND)
 	int i,j,k;
 	unsigned int Si[L_LEN] = {0};
 	unsigned int Sidx[T2_LEN] = {0};
-	RND->InitZero(OUT_LEN);
+	RND->InitZero(OUT_LEN);  // performed just after RND definition
 
 	for(i=0;i<OUT_LEN;i++)
 	{

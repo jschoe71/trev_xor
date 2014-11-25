@@ -1,4 +1,4 @@
-﻿#ifndef CONFIG 
+#ifndef CONFIG 
 #define CONFIG
 
 //만약 아래의 세팅값을 변경 할 시, Si 부분도 수정해야 함
@@ -14,5 +14,7 @@
 #define MOD 271
 #define NUM_Si 270
 #define DEGREE 2
+
+#define NUM_OF_THREAD 4
 
 #endif

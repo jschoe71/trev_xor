@@ -1,13 +1,15 @@
-﻿#ifdef _WIN32
+#ifdef _WIN32
 #define _CRT_SECURE_NO_WARNINGS  // to avoid fopen error in VC++
 #endif
 #include <stdio.h>
 #include <time.h>
+#include <thread>
 /*
 #include <iostream>
 #include <fstream>
 #include <string>
 */
+
 
 
 //#pragma warning (disable : 4996)
@@ -27,7 +29,7 @@ unsigned int measure_extractor_per_clock(unsigned int dtMin);
 unsigned int calibrate();
 unsigned int calibrate_per_clock();
 unsigned int HiResTime(void);
-
+void multithread_loop(FILE *, FILE *, FILE *, int, int);
 void main()
 {
 	//사용예
@@ -58,15 +60,38 @@ void main()
 	//ArrayClass X(fp,X_LEN, 'b');			//Random source 입력 받기
 	//ArrayClass T(fp2,T_LEN);		//U_t 입력 받기
 	//ArrayClass T(fp2, T_LEN, 'b', 'r');
-	ArrayClass RND;					//출력을 저장할 변수 선언
+//	ArrayClass RND;					//출력을 저장할 변수 선언
+
+	//RND.InitZero(OUT_LEN);
 
 	int i = 0;
-	for (i = 0; i < iterations; ++i){
+	int j = 0;
+	
+	int iter_multithread = iterations / NUM_OF_THREAD; // iteration number of multithreaded calculation
+	int iter_single_thread = iterations % NUM_OF_THREAD; // iteration number of single threaded calculation
+
+	std::thread *t = new std::thread[NUM_OF_THREAD];
+	for (j = 0; j < iter_multithread; ++j){
+		for (i = 0; i < NUM_OF_THREAD; ++i)
+			t[i] = std::thread(multithread_loop, fp, fp2, fp3, i, j);
+
+		for (i = 0; i < NUM_OF_THREAD; ++i)
+			t[i].join();
+	}
+	
+	ArrayClass RND;
+	RND.InitZero(OUT_LEN);
+// following three lines may be omitted.
+	fseek(fp, iter_multithread*NUM_OF_THREAD*X_LEN, SEEK_SET);
+	fseek(fp2, iter_multithread*NUM_OF_THREAD*T_LEN, SEEK_SET);
+	fseek(fp3, iter_multithread*NUM_OF_THREAD*OUT_LEN, SEEK_SET);
+
+	for (i = 0; i < iter_single_thread; ++i){
 		ArrayClass X(fp, X_LEN, 'b');			//Random source 입력 받기
 		ArrayClass T(fp2, T_LEN, 'b', 'r');
 		extractor(&X, &T, &RND);			//extractor수행
-		//X.fprint(fp3, "Random SRC ", 'b');
-		//T.fprint(fp3, "U_t        ", 'b');
+	//	//X.fprint(fp3, "Random SRC ", 'b');
+	//	//T.fprint(fp3, "U_t        ", 'b');
 		RND.fprint(fp3, "", 'b');				//출력
 	}
 	
@@ -79,6 +104,20 @@ void main()
 	
 }
 
+void multithread_loop(FILE *fp1, FILE *fp2, FILE *fp3, int i, int j)
+// i : index of thread
+// j : index of iteration with multiple threads
+{
+	fseek(fp1, (i+j*NUM_OF_THREAD)*X_LEN, SEEK_SET);
+	fseek(fp2, (i+j*NUM_OF_THREAD)*T_LEN, SEEK_SET);
+	fseek(fp3, (i+j*NUM_OF_THREAD)*OUT_LEN, SEEK_SET);
+	ArrayClass X(fp1, X_LEN, 'b');  // thread간에 fp1을 읽는 위치가 X_LEN 만큼씩 차이가 있어야 함
+	ArrayClass T(fp2, T_LEN, 'b', 'r');  // 여기서는 T_LEN만큼의 간격으로..
+	ArrayClass RND;
+	RND.InitZero(OUT_LEN);
+	extractor(&X, &T, &RND);
+	RND.fprint(fp3, "", 'b');
+}
 void doTiming()
 {
     unsigned int calibration;
